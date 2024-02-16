@@ -25,5 +25,11 @@ namespace APITestAutomation
             //ejecutamos la solicitud HTTP utilizando el cliente RestSharp (_client) y pasamos el objeto RestRequest 
             return _client.Execute(request); //El método Execute realiza la solicitud HTTP y devuelve un objeto RestResponse
         }
+
+        public RestResponse GetPostByID(string id)
+        {
+            var request = new RestRequest("/posts/"+id , Method.Get);
+            return _client.Execute(request);
+        }
     }
 }
