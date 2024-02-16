@@ -25,5 +25,19 @@ namespace APITestAutomation.Tests
            
 
         }
+        [Test]
+        public void GetStatusCodeTest()
+        {
+            var postsPage = new PostsPage();
+            var response = postsPage.GetPosts();
+
+            // Agrega aquí las aserciones para verificar la respuesta
+            Console.WriteLine(response.Content);
+            Console.WriteLine(response.StatusCode);
+            // Verifica si la respuesta de la solicitud HTTP fue exitosa (código de estado 200)
+            Assert.AreEqual(System.Net.HttpStatusCode.OK, response.StatusCode);
+
+
+        }
     }
 }
