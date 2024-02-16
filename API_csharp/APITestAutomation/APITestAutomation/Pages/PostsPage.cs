@@ -11,9 +11,11 @@ namespace APITestAutomation
     public class PostsPage
     {
         private readonly RestClient _client;
+       
 
         public PostsPage()
         {
+            //Endpoint del API de pruebas
             _client = new RestClient("https://jsonplaceholder.typicode.com");
         }
 
@@ -25,10 +27,24 @@ namespace APITestAutomation
             //ejecutamos la solicitud HTTP utilizando el cliente RestSharp (_client) y pasamos el objeto RestRequest 
             return _client.Execute(request); //El método Execute realiza la solicitud HTTP y devuelve un objeto RestResponse
         }
-
+        //Metodo para enviar el request por el id
         public RestResponse GetPostByID(string id)
         {
             var request = new RestRequest("/posts/"+id , Method.Get);
+            return _client.Execute(request);
+        }
+        //Metodo para resgistrar un nuevo post
+        public RestResponse PostNewPost(string title, string body, int userID)
+        {
+            var request = new RestRequest("/posts", Method.Post);
+            //como es un post se envian los campos del request
+            request.AddJsonBody(new { title, body, userID });
+            return _client.Execute(request);
+        }
+        //Metodo para Eliminar el post creado
+        public RestResponse DeleteNewPost(string idPost)
+        {
+            var request = new RestRequest("/posts/" + idPost, Method.Delete);
             return _client.Execute(request);
         }
     }

@@ -11,6 +11,7 @@ namespace APITestAutomation.Tests
     [TestFixture]
     public class PostsTests
     {
+        private int _idpost; //para elimara el post creado
         [Test]
         public void GetPostsTest()
         {
@@ -56,5 +57,56 @@ namespace APITestAutomation.Tests
 
 
         }
+
+        [Test]
+        public void PostNewTest()
+        {
+            var postsPage = new PostsPage();
+            string title = "QA REGRESION POST";
+            string body = "Esto es solo un ejercicio";
+            int userID = 12;
+
+            var response = postsPage.PostNewPost(title,body, userID);
+
+            
+            Console.WriteLine(response.Content);
+            Console.WriteLine(response.StatusCode);
+            //obteniendo los campos del response
+            var jsonResponse = JObject.Parse(response.Content);
+
+            string postTitle = jsonResponse["title"].Value<string>();
+            string postBody = jsonResponse["body"].Value<string>();
+            int userIdPost = jsonResponse["userID"].Value<int>();
+
+            this._idpost = jsonResponse["id"].Value<int>();
+
+            Assert.AreEqual(title, postTitle); //Validamos que sea el dato esperado
+            Assert.AreEqual(body, postBody);
+            Assert.AreEqual(userID, userIdPost);
+
+
+        }
+        [Test]
+        public void DeleteNewTest()
+        {
+            var postsPage = new PostsPage();
+
+            var response = postsPage.DeleteNewPost(this._idpost.ToString());
+
+
+            Console.WriteLine(response.Content);
+            Console.WriteLine(response.StatusCode);
+            //obteniendo los campos del response
+            var jsonResponse = JObject.Parse(response.Content);
+
+
+            Assert.AreEqual(System.Net.HttpStatusCode.OK, response.StatusCode);
+
+
+
+        }
+
+
+
     }
 }
