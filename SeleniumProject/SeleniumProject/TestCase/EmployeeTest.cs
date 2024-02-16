@@ -33,7 +33,7 @@ namespace SeleniumProject.TestCase
         }
 
         //TestCase: Anotacion de NUnit que permite validar un caso de pruba con varios datos 
-        [TestCase("Maria", "maria@gmail.com", "Zona 5", "458632")]
+        [TestCase("", "maria@gmail.com", "Zona 5", "458632")]
         [TestCase("Tania", "tania@gmail.com", "Zona 6", "458638")]
         public void AddEmployeeTest(string name, string email, string address, string phone)
         {
