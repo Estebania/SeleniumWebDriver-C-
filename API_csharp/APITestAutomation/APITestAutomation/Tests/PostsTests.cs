@@ -87,7 +87,7 @@ namespace APITestAutomation.Tests
 
         }
         [Test]
-        public void DeleteNewTest()
+        public void DeleteNewPostTest()
         {
             var postsPage = new PostsPage();
 
